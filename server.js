@@ -22,3 +22,62 @@ app.use(methodOverride());
 // list
 app.listen(8080);
 console.log("App listening on port 8080");
+
+// model definition
+var Todo = mongoose.model('Todo', {
+  text : String
+});
+
+
+// REST routes
+
+  // get todos
+  app.get('/api/todos', function(req, res){
+
+    //mongoose gets all the todos in the db
+    Todo.find(function(err, todos){
+
+      // if error, send an error
+      if (err)
+        res.send(err)
+
+      res.json(todos) // return todos in JSON
+    });
+  });
+
+  //create todo and get todos after they are created
+  app.post('/api/todos', function(req, res){
+
+    // create a todo, information provided by AJAX call
+    Todo.create({
+      test : req.body.text,
+      done : false
+    }, function(err, todo){
+      if (err)
+        res.send(err);
+
+      // get all the todos after creation
+      Todo.find(function(err, todos){
+        if (err)
+            res.send(err)
+          res.json(todos);
+      });
+    });
+  });
+
+  // delete a todo
+  app.delete('/api/todos/:todo_id', function(req, res){
+    Todo.remove({
+      _id : req.params.todo_id
+    }, function (err, todo) {
+      if (err)
+        res.send(err)
+
+      // get all the todos after deletion
+      Todo.find(function(err, todos){
+        if (err)
+          res.send(err)
+        res.json(todos);
+      });
+    });
+  });
