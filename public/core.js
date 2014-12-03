@@ -1,7 +1,7 @@
 // public/core.js
-var nodeTodo = angular.module('nodeTodo', []);
+var nodeTodo = angular.module('nodeTodo', [])
 
-function mainController($scope, $http) {
+nodeTodo.controller('MainController',['$scope', '$http', function($scope, $http) {
   $scope.formData = {};
 
   //get all todos and display on page load
@@ -29,7 +29,7 @@ function mainController($scope, $http) {
 
   // delete a todos
   $scope.deleteTodo = function(id) {
-    $http.delete('/api/todos' + id)
+    $http.delete('/api/todos/' + id)
       .success(function(data) {
         $scope.todos = data;
         console.log(data);
@@ -38,4 +38,4 @@ function mainController($scope, $http) {
         console.log('Error: ' + data);
       });
   };
-}
+}]);

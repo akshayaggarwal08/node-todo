@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Node + Angular Todo</title>
+
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+  <script src="core.js"></script>
+</head>
+<body ng-app="nodeTodo" ng-controller="MainController">
+  <div class="container">
+    <div class="jumbotron text-center">
+      <h1>Number of Todos <span class="label label-info">{{todos.length}}</span></h1>
+    </div>
+
+    <div id="todo-list" class="row">
+      <div class="col-sm-4 col-sm-offset-4">
+        <div class="checkbox" ng-repeat="todo in todos">
+          <label>
+            <input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div id="todo-form" class="row">
+      <div class="col-sm-8 col-sm-offset-2 text-center">
+        <form>
+          <div class="form-group">
+            <input type="text" class="form-control input-lg text-center" placeholder="Create a new todo here" ng-model="formData.text">
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

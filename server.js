@@ -47,7 +47,7 @@ var Todo = mongoose.model('Todo', {
 
     // create a todo, information provided by AJAX call
     Todo.create({
-      test : req.body.text,
+      text : req.body.text,
       done : false
     }, function(err, todo){
       if (err)
